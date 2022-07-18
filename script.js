@@ -28,7 +28,15 @@ const divide = function (num1, num2) {
         return num1 / num2;
     }
 }
+const percent = function () {
 
+}
+
+const countDecimals = function (value) {
+    if (typeof value != "number") {return;}
+    if (Math.floor(value) === value) return 0;
+    return value.toString().split(".")[1].length || 0;
+    }
 
 const operate = function (num1, operator, num2) {
     if (operator === "add") {
@@ -38,15 +46,11 @@ const operate = function (num1, operator, num2) {
     } else if (operator === "multiply") {
         return multiply(num1, num2);
     } else if (operator === "divide") {
-        return divide(num1, num2);
-        
+        return divide(num1, num2);  
     }
 }
 
-
-
-
-
+//
 buttons.forEach((button) => {
     button.addEventListener("click", e => {
         const key = e.target;
@@ -77,6 +81,8 @@ buttons.forEach((button) => {
             action == "divide") {
             currentOperator = action;
             lastValue = Number(displayValue);
+            } else if (action == "plusMinus") {
+                displayValue = displayValue * -1;
             } else if (action == "clear") {
                 action = "";
                 displayValue = "0";
@@ -84,7 +90,9 @@ buttons.forEach((button) => {
             } else if (action == "equals") {
                 displayValue = Number(displayValue);
                 answer = operate(lastValue, currentOperator, displayValue);
-                console.log(`last: ${lastValue} ${currentOperator} current ${displayValue}`)
+                if (countDecimals(answer) > 2) {
+                    answer = answer.toFixed(2);
+                }
                 displayValue = answer;
             }
             update();
@@ -92,5 +100,5 @@ buttons.forEach((button) => {
     })
 
 
-
 //
+console.log(countDecimals("ಠ_ಠ"));
