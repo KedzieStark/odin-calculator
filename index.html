@@ -15,28 +15,28 @@
 <body>
     <div class="calcBody">
         <div class="display">
-            <span class="displayContent">001101010010</span>
+            <span id="displayContent">0</span>
         </div>
         <div class="buttons">
-            <button class="symbol">AC</button>
-            <button class="symbol">+/-</button>
-            <button class="symbol">%</button>
-            <button class="operator">/</button>
+            <button class="symbol clear" data-action="clear">AC</button>
+            <button class="symbol sign" data-action="plusMinus">+/-</button>
+            <button class="symbol percent" data-action="percent">%</button>
+            <button class="operator" data-action="divide">÷</button>
             <button class="operand">7</button>
-            <button class="operand">8</button>
+            <button class="operand"">8</button>
             <button class="operand">9</button>
-            <button class="operator">*</button>
+            <button class="operator" data-action="multiply">*</button>
             <button class="operand">4</button>
             <button class="operand">5</button>
             <button class="operand">6</button>
-            <button class="operator">-</button>
+            <button class="operator" data-action="subtract">—</button>
             <button class="operand">1</button>
             <button class="operand">2</button>
             <button class="operand">3</button>
-            <button class="operator">+</button>
+            <button class="operator" data-action="add">+</button>
             <button class="operand zero">0</button>
-            <button class="operator">.</button>
-            <button class="operator">=</button>
+            <button class="operand">.</button>
+            <button class="operator" data-action="equals">=</button>
         </div>
     </div>
     <script src="script.js"></script>

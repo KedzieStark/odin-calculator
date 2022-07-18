@@ -39,7 +39,9 @@ const countDecimals = function (value) {
     }
 
 const operate = function (num1, operator, num2) {
-    if (operator === "add") {
+    if (!!num2) {
+        return displayValue;
+    } else if (operator === "add") {
         return add(num1, num2);
     } else if (operator === "subtract") {
         return subtract(num1, num2);
@@ -98,7 +100,3 @@ buttons.forEach((button) => {
             update();
         })
     })
-
-
-//
-console.log(countDecimals("ಠ_ಠ"));
