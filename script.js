@@ -22,8 +22,13 @@ const multiply = function (num1, num2) {
     return num1 * num2;
 }
 const divide = function (num1, num2) {
-    return num1 / num2;
+    if (num2 == 0) {
+        return "ಠ_ಠ";
+    } else {
+        return num1 / num2;
+    }
 }
+
 
 const operate = function (num1, operator, num2) {
     if (operator === "add") {
@@ -34,12 +39,11 @@ const operate = function (num1, operator, num2) {
         return multiply(num1, num2);
     } else if (operator === "divide") {
         return divide(num1, num2);
+        
     }
 }
 
-const divideByZero = function () {
-    return "ಠ_ಠ";
-}
+
 
 
 
@@ -66,12 +70,13 @@ buttons.forEach((button) => {
             update();
         } else {
             pressedOperator = true;
+        }
+        if (action == "add" ||
+            action == "subtract" ||
+            action == "multiply" ||
+            action == "divide") {
             currentOperator = action;
-            if (action == "add" ||
-                action == "subtract" ||
-                action == "multiply" ||
-                action == "divide") {
-                lastValue = Number(displayValue);
+            lastValue = Number(displayValue);
             } else if (action == "clear") {
                 action = "";
                 displayValue = "0";
@@ -83,9 +88,8 @@ buttons.forEach((button) => {
                 displayValue = answer;
             }
             update();
-        }
+        })
     })
-})
 
 
 
