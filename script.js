@@ -1,9 +1,9 @@
 const buttons = document.querySelectorAll("button");
 const display = document.querySelector("#displayContent");
 let displayValue = "";
-let lastValue;
-let nextValue;
-let currentOperator = "";
+let firstOperand;
+let firstOperator = "";
+let secondOperator = "";
 let pressedOperator;
 let answer;
 
@@ -31,27 +31,33 @@ const divide = function (num1, num2) {
 const percent = function () {
 
 }
+const clear = function () {
+    action = "";
+    displayValue = "0";
+    firstOperand = "";
+    firstOperator = "";
+    secondOperator = "";
+}
 
-const countDecimals = function (value) {
-    if (typeof value != "number") {return;}
+const roundToTwo = function (value) {
+    if (typeof value != "number") { return; }
     if (Math.floor(value) === value) return 0;
-    return value.toString().split(".")[1].length || 0;
+    if (value.toString().split(".")[1].length > 2){
+        return value.toFixed(2);
     }
+}
 
 const operate = function (num1, operator, num2) {
-    if (!!num2) {
-        return displayValue;
-    } else if (operator === "add") {
+    if (operator === "add") {
         return add(num1, num2);
     } else if (operator === "subtract") {
         return subtract(num1, num2);
     } else if (operator === "multiply") {
         return multiply(num1, num2);
     } else if (operator === "divide") {
-        return divide(num1, num2);  
+        return divide(num1, num2);
     }
 }
-
 //
 buttons.forEach((button) => {
     button.addEventListener("click", e => {
@@ -67,7 +73,7 @@ buttons.forEach((button) => {
                 }
             } else {
                 //only allow one decimal per operand
-                if (displayValue.includes(".") && keyContent == ".") {
+                if (displayValue.toString().includes(".") && keyContent == ".") {
                     return;
                 }
                 displayValue = displayValue + keyContent;
@@ -75,28 +81,49 @@ buttons.forEach((button) => {
             pressedOperator = false;
             update();
         } else {
-            pressedOperator = true;
+            displayValue = Number(displayValue);
         }
         if (action == "add" ||
             action == "subtract" ||
             action == "multiply" ||
             action == "divide") {
-            currentOperator = action;
-            lastValue = Number(displayValue);
-            } else if (action == "plusMinus") {
-                displayValue = displayValue * -1;
-            } else if (action == "clear") {
-                action = "";
-                displayValue = "0";
-                lastValue = "";
-            } else if (action == "equals") {
-                displayValue = Number(displayValue);
-                answer = operate(lastValue, currentOperator, displayValue);
-                if (countDecimals(answer) > 2) {
-                    answer = answer.toFixed(2);
-                }
-                displayValue = answer;
+            //assign firstOperator
+            if (firstOperator == "") {
+                pressedOperator = true;
+                firstOperator = action;
+                firstOperand = Number(displayValue);
+            //assign secondOperator
+            } else if (firstOperator != "" && secondOperator == "") {
+                pressedOperator = true;
+                secondOperator = action;
+                displayValue = operate(firstOperand, firstOperator, displayValue);
+                update();
+                firstOperand = displayValue;
+                
+            //pass operators through in sequence
+            } else if (firstOperator != "" && secondOperator != "") {
+                if (pressedOperator) { return;}
+                pressedOperator = true;
+                firstOperator = secondOperator;
+                secondOperator = action;
+                displayValue = operate(firstOperand, firstOperator, displayValue);
+                update();
             }
+        } else if (action == "plusMinus") {
+            displayValue = displayValue * -1;
             update();
-        })
+        } else if (action == "clear") {
+            pressedOperator = true;
+            clear();
+            update();
+        } else if (action == "equals") {
+            if (pressedOperator) { return;}
+            pressedOperator = true;
+            displayValue = operate(firstOperand, firstOperator, displayValue);
+            firstOperator = ""
+            update();
+        }
+        console.log(`1st operand: ${firstOperand}. 2nd operand: ${displayValue}`);
+        console.log(`1st operator: ${firstOperator}. 2nd operator: ${secondOperator}`);
     })
+})

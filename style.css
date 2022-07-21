@@ -6,7 +6,6 @@ body {
     font-weight: 700;
     height: 100vh;
     background-color: #e7ebf0;
-    
 }
 
 .calcBody {
@@ -61,30 +60,35 @@ body {
     font-weight: 700;
     font-size: 1.2em;
     border-radius: 6px;
-    
+
 }
 
 .symbol:hover {
     background-color: #f8e996;
 }
 
-.symbol, .symbol:active {
+.symbol,
+.symbol:active {
     background-color: #F7D716;
     color: #F24C4C;
 }
 
-.operator:hover{
+.operator:hover {
     background-color: #51597b;
 }
-.operator, .operator:active{
+
+.operator,
+.operator:active {
     background-color: #293462;
-    color:#F7D716;
+    color: #F7D716;
 }
 
 .operand:hover {
-    background-color: #ffc379; 
+    background-color: #ffc379;
 }
-.operand, .operand:active {
+
+.operand,
+.operand:active {
     color: #F24C4C;
     background-color: #ffaa41;
 }
